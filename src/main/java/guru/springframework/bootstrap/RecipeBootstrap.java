@@ -42,14 +42,13 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        log.error("#################");
-        log.error(reactiveRepository.count().block().toString());
-
-
         loadCategories();
         loadUom();
         recipeRepository.saveAll(getRecipes());
         log.debug("Loading Bootstrap Data");
+
+        log.error("#################");
+        log.error("Count: " + reactiveRepository.count().block().toString());
     }
 
     private void loadCategories(){
